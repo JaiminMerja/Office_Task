@@ -1,0 +1,60 @@
+1. Print Count to a .txt File Every 15 Seconds Using File Handling and Threading Concepts
+The count should append to the file without overwriting existing data.
+
+2. Day Count Calculation Based on Different Statuses
+Each working day has a status associated with it, and each status contributes differently to the final day count:
+
+Present – contributes 0.35
+Miss Punch – contributes 0.25
+Work from Home (WFH) – contributes 0.50
+Earned Leave (EL) – contributes 0.25
+
+The program should calculate:
+
+A final day count that sums up the contributions from each day.
+An adjusted day count, ensuring that the total meets common values like 0.25, 0.50, 0.75, or 1.0.
+All "Present" statuses should be grouped and summed into these rounded thresholds.
+Leaves should also be handled and adjusted in the same way to reflect proper utilization.
+
+3. Generate Work Schedule Based on Required Hours and Date Range
+Create a program that accepts the following input parameters:
+
+Start Date: (e.g., 2025-05-01)
+End Date: (e.g., 2025-05-05)
+Required Working Hours: (e.g., 32:00:00)
+
+The program should return a list of working days (excluding weekends or non-working days such as Sundays), 
+along with their associated start time and end time (e.g., 09:30:00 to 18:00:00).
+
+For example:
+
+Input:
+  Start Date: 2025-05-01
+  End Date: 2025-05-05
+  Required Working Hours: 32:00:00
+
+Output:
+  [
+    2025-05-01 09:30:00 to 18:00:00,
+    2025-05-02 09:30:00 to 18:00:00,
+    2025-05-03 09:30:00 to 18:00:00,
+    2025-05-05 09:30:00 to 18:00:00
+  ]
+Note: May 4th (Sunday) is excluded.
+
+4. Merge Data from Three Maps and Generate Final Report
+You have three maps:
+
+Map 1: Contains year, month, EL balance, and SL balance.
+Map 2: Contains year, month, and present days.
+Map 3: Contains year, month, and awarded EL, SL.
+
+Using these three maps, generate a final map containing:
+
+Year
+Month
+Total Working Days
+Present Working Days
+
+The final result should be grammatically correct and well-formatted. It should reflect the consolidated working day summary
+ based on attendance and leave data.
