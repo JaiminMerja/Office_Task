@@ -1,69 +1,67 @@
 package com.officeTask;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.time.YearMonth;
+import java.time.format.TextStyle;
+import java.util.*;
 
 public class Task_1_19_05 
 {
-	public static void main(String[] args) 
-	{
-		//EL Balance 
-		Map<String, Integer> ELBalance = new HashMap<>();
-		ELBalance.put("2025-January", 20);
-		ELBalance.put("2025-Feburary", 25);
-		
-		//SL Balance
-		Map<String, Integer> SLBalance = new HashMap<>();
-		SLBalance.put("2025-January", 7);
-		SLBalance.put("2025-Feburary", 8);
-		
-		//Present Days
-		Map<String, Integer> PDM = new HashMap<>();
-		PDM.put("2025-January", 4);
-		PDM.put("2025-Feburary", 5);
-		
-		//Award EL
-		Map<String, Integer> AEL = new HashMap<>();
-		AEL.put("2025-January", 7);
-		AEL.put("2025-Feburary", 6);
-		
-		//Award SL
-		Map<String, Integer> ASL = new HashMap<>();
-		ASL.put("2025-January", 4);
-		ASL.put("2025-Feburary", 3);
-		
-		//Merge Key
-		Set<String> AllKey = new HashSet<>();
-		AllKey.addAll(ELBalance.keySet());
-		AllKey.addAll(SLBalance.keySet());
-		AllKey.addAll(PDM.keySet());
-		AllKey.addAll(AEL.keySet());
-		AllKey.addAll(ASL.keySet());
-		
-		//Final Report
-		Map<String, String> finalreport = new HashMap<>();
-		{
-			for(String key : AllKey)
-			{
-				int elBalance = ELBalance.getOrDefault(key, 0);
-				int slBalance = SLBalance.getOrDefault(key, 0);
-				int presentday = PDM.getOrDefault(key, 0);
-				int elAward = AEL.getOrDefault(key, 0);
-				int slAward = ASL.getOrDefault(key, 0);
-				
-				int totalworkingday = presentday + elAward + slAward;
-				
-				String report = "Total Working Days:" + totalworkingday + ", Present Days:" + presentday;
-				finalreport.put(key, report);
-			}
-			System.out.println("Final Report of Working Days......");
-			for(Map.Entry<String, String> entry : finalreport.entrySet())
-			{
-				System.out.println(entry.getKey() +" -> "+ entry.getValue());
-			}
-		}
-	}
+
+    public static void main(String[] args)
+    {
+        // Map 1: Leave Balances
+        Map<YearMonth, Map<String, Integer>> leaveBalanceMap = new HashMap<>();
+        // Map 2: Present Days
+        Map<YearMonth, Integer> presentDaysMap = new HashMap<>();
+        // Map 3: Awarded Leaves
+        Map<YearMonth, Map<String, Integer>> awardedLeaveMap = new HashMap<>();
+
+        // Sample Data
+        YearMonth jan = YearMonth.of(2024, 1);
+        YearMonth feb = YearMonth.of(2024, 2);
+
+        leaveBalanceMap.put(jan, Map.of("EL", 5, "SL", 2));
+        leaveBalanceMap.put(feb, Map.of("EL", 4, "SL", 1));
+
+        presentDaysMap.put(jan, 20);
+        presentDaysMap.put(feb, 18);
+
+        awardedLeaveMap.put(jan, Map.of("EL", 2, "SL", 1));
+        awardedLeaveMap.put(feb, Map.of("EL", 1, "SL", 2));
+
+        // Generate Final Report Map
+        Map<YearMonth, Map<String, Integer>> finalReport = new TreeMap<>();
+
+        for (YearMonth ym : presentDaysMap.keySet()) 
+        {
+            int present = presentDaysMap.getOrDefault(ym, 0);
+            Map<String, Integer> awarded = awardedLeaveMap.getOrDefault(ym, Map.of("EL", 0, "SL", 0));
+            int awardedEL = awarded.getOrDefault("EL", 0);
+            int awardedSL = awarded.getOrDefault("SL", 0);
+            int total = present + awardedEL + awardedSL;
+
+            Map<String, Integer> data = new HashMap<>();
+            data.put("TotalWorkingDays", total);
+            data.put("PresentWorkingDays", present);
+
+            finalReport.put(ym, data);
+        }
+
+        // Print Final Report
+        System.out.println("📊 Consolidated Working Day Summary Report:");
+        System.out.println("-----------------------------------------------------");
+
+        for (Map.Entry<YearMonth, Map<String, Integer>> entry : finalReport.entrySet()) 
+        {
+            YearMonth ym = entry.getKey();
+            String monthName = ym.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+            int year = ym.getYear();
+            Map<String, Integer> data = entry.getValue();
+
+            System.out.printf("🗓️  %s %d\n", monthName, year);
+            System.out.printf("   - Total Working Days     : %d\n", data.get("TotalWorkingDays"));
+            System.out.printf("   - Present Working Days   : %d\n", data.get("PresentWorkingDays"));
+            System.out.println("-----------------------------------------------------");
+        }
+    }
 }
