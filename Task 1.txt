@@ -57,4 +57,9 @@ Total Working Days
 Present Working Days
 
 The final result should be grammatically correct and well-formatted. It should reflect the consolidated working day summary
- based on attendance and leave data.
+based on attendance and leave data.
+
+In map 1 we have to choose a year, month in which i have el balance and sl balance
+In map 2 we have to make present dayss for that month 
+in map 3 we have tp check how much sl and el is given 
+then calculate the total present days 
